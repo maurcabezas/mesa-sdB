@@ -1,0 +1,3 @@
+#!/bin/bash
+
+../../star/test_suite/each_test_run_and_diff $1
