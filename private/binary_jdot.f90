@@ -91,6 +91,7 @@
          if (.not. b% use_other_extra_jdot) then
              b% extra_jdot = 0
          else 
+         ! Use this function to implement the minimum and maximum angular momentum lost from around the accretor. And set beta to 0.
              call b% other_extra_jdot(b% binary_id, ierr)
          end if
          
