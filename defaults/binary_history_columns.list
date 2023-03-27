@@ -44,13 +44,13 @@
       !period_minutes ! orbital period in minutes
       !lg_separation ! log10 of orbital separation in rsun
       binary_separation ! orbital separation in rsun
-      !eccentricity ! orbital eccentricity
+      eccentricity ! orbital eccentricity
       v_orb_1 ! orbital velocity of first star (in km/s)
       v_orb_2 ! orbital velocity of first star (in km/s)
 
       ! Information related to radius and overflow
-      !star_1_radius ! radius of the first star in rsun
-      !star_2_radius ! radius of the second star in rsun
+      star_1_radius ! radius of the first star in rsun
+      star_2_radius ! radius of the second star in rsun
       rl_1 ! roche lobe radius of first star in rsun
       rl_2 ! roche lobe radius of second star in rsun
       rl3_1 ! L3 roche lobe radius of first star in rsun
