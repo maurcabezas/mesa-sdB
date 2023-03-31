@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [[ -e tester.exe ]];then
-	./tester.exe
-else
-	./tester
-fi
