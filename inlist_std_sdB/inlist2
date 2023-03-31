@@ -1,0 +1,49 @@
+&star_job
+      
+   show_log_description_at_start = .false.
+   
+   create_pre_main_sequence_model = .false. ! needed for different metalicity
+   
+   change_net = .true.
+   new_net_name = 'o18_and_ne22.net'
+   
+ !  load_saved_model = .true.
+ !  saved_model_name = 'secondary_zams.mod'
+   
+   set_initial_model_number = .true.
+   initial_model_number = 0
+   
+   ! initial rotation
+   change_rotation_flag = .true.
+   new_rotation_flag = .true.
+   set_initial_surface_rotation_v = .true.
+   new_surface_rotation_v = 100 ! surface rotation in km/s at ZAMS
+      
+/ ! end of star_job namelist
+
+
+
+&controls
+
+   photo_directory = 'photos2'
+   log_directory = 'LOGS'
+
+
+   photo_interval = 1000
+   history_interval = 10
+   terminal_interval = 10
+   star_history_name = 'history2.data'
+   write_profiles_flag = .false.
+   write_header_frequency = 10
+   
+   varcontrol_target = 1d-3
+      
+
+/ ! end of controls namelist
+
+
+&pgstar
+         
+
+
+/ ! end of pgstar namelist

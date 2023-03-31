@@ -1,0 +1,46 @@
+&binary_job
+
+   inlist_names(1) = 'inlist1' 
+   inlist_names(2) = 'inlist2'
+
+   evolve_both_stars = .true.
+
+/ ! end of binary_job namelist
+
+&binary_controls
+         
+   m1 = 1.0d0  ! donor mass in Msun
+   m2 = 0.95d0 ! companion mass in Msun
+   initial_period_in_days = 400d0
+   use_other_extra_jdot = .true.
+   use_other_jdot_ml = .true.
+   limit_retention_by_mdot_edd = .false.
+   
+   mdot_scheme = 'Kolb_L3'
+   
+   mass_transfer_alpha = 0.0d0
+   mass_transfer_beta = 1.0d0
+   mass_transfer_delta = 0.0d0
+   mass_transfer_gamma = 1.12d0
+   
+   ! make sure to do accretion on the companion and limit it by vcrit
+   limit_retention_by_vcrit = .true.
+   
+   ! do magnetic breaking
+   do_jdot_mb = .true.
+   
+   ! accrete angular momentum as in de Mink et al. 2013
+   do_j_accretion = .true.
+   
+   ! tidal synchronisation
+   do_tidal_sync = .true.
+   sync_type_1 = 'Hut_conv'
+   sync_type_2 = 'Hut_rad'
+   
+   ! controls for binary output
+   log_directory = 'LOGS'
+   history_interval = 3
+   terminal_interval = 5
+   append_to_star_history = .false.
+         
+/ ! end of binary_controls namelist

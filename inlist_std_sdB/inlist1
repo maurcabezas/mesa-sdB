@@ -1,0 +1,61 @@
+&star_job
+      
+   show_log_description_at_start = .false.
+   save_model_when_terminate = .false.
+   save_model_filename = 'final.mod'
+   
+   create_pre_main_sequence_model = .false. ! needed for different metalicity
+   
+   change_net = .true.
+   new_net_name = 'o18_and_ne22.net'
+   
+!   load_saved_model = .true.
+!   saved_model_name = 'primary_zams.mod'
+   
+   set_initial_model_number = .true.
+   initial_model_number = 0
+   
+   ! initial rotation
+   change_rotation_flag = .true.
+   new_rotation_flag = .true.
+   set_initial_surface_rotation_v = .true.
+   new_surface_rotation_v = 100 ! surface rotation in km/s at ZAMS
+
+/ ! end of star_job namelist
+
+
+
+&controls
+   
+   photo_directory = 'photos1'
+   log_directory = 'LOGS'
+
+
+   photo_interval = 1000
+   history_interval = 3
+   terminal_interval = 10
+   star_history_name = 'history1.data'
+   write_profiles_flag = .false.
+   write_header_frequency = 10
+   
+   cool_wind_RGB_scheme = 'Reimers'
+   Reimers_scaling_factor = 0.1    
+   cool_wind_AGB_scheme = 'Blocker'
+   Blocker_scaling_factor = 0.5    
+   RGB_to_AGB_wind_switch = 1d-4
+   
+   
+   varcontrol_target = 1d-3
+   
+   ! stopping criterium
+   max_model_number = 10000
+   log_g_upper_limit = 7.6
+      
+
+/ ! end of controls namelist
+
+
+&pgstar
+         
+
+/ ! end of pgstar namelist
