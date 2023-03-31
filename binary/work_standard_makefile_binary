@@ -1,0 +1,68 @@
+# work_standard_makefile for mesa/binary
+
+# change this as necessary.  see utils/makefile_header for definitions.
+
+include $(MESA_DIR)/utils/makefile_header
+
+LOAD_MESA = $(LOAD_EXTRAS1) $(LOAD_MESA_BINARY) $(LOAD_EXTRAS)
+
+#################################################################
+
+ifndef STAR
+STAR = binary
+endif
+
+# BINARY_WORK_OBJS defined in makefile_header
+OBJS = $(BINARY_WORK_OBJS) binary_run.o
+
+WORK_DIR = ..
+WORK_SRC_DIR = $(WORK_DIR)/src
+STAR_JOB_DIR = $(MESA_DIR)/star/job
+BINARY_JOB_DIR = $(MESA_DIR)/binary/job
+
+$(STAR) : $(OBJS)
+	$(LOADER) $(FCopenmp) -o $(WORK_DIR)/$(STAR) $(OBJS) $(LOAD_MESA)
+	
+#################################################################
+
+# WORK_COMPILE defined in makefile_header
+
+# STAR_WORK_OBJS
+
+run_star_extras.o: $(WORK_SRC_DIR)/run_star_extras.f
+	$(WORK_COMPILE) $<
+
+run_star.o: $(STAR_JOB_DIR)/run_star.f
+	$(WORK_COMPILE) $<
+	
+# NOTE: we don't use work/src/run.f
+
+
+# BINARY_WORK_OBJS
+
+binary_run.o: $(WORK_SRC_DIR)/binary_run.f
+	$(WORK_COMPILE) $<
+
+run_binary_extras.o: $(WORK_SRC_DIR)/run_binary_extras.f
+	$(WORK_COMPILE) $<
+
+run_binary.o: $(BINARY_JOB_DIR)/run_binary.f
+	$(WORK_COMPILE) $<
+
+
+clean:
+	-@rm -f *.o *.mod $(WORK_DIR)/$(STAR)
+
+
+remk:
+	-@rm -f run.o $(WORK_DIR)/$(STAR)
+	
+
+
+
+
+
+
+
+
+

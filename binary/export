@@ -1,0 +1,4 @@
+cp make/binary_lib.mod ../include
+cp make/binary_def.mod ../include
+
+cp make/libbinary*.a ../lib
