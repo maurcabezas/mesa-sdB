@@ -51,4 +51,4 @@ We must set the 'other' *jdot_* as **.true.**
 
   - Probably, is not neccesary define three times *jdot_alpha* and *jdot_delta*. I am trying ti define them al global variables. 
   
-  - Feel free to make any change or make any change.
+  - Feel free to make any change.
