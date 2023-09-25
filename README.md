@@ -13,13 +13,13 @@ By editing and creating equations in the src/run_binary_extras.f in our working 
 
 ## Edition:
 
-1) inlist_std_sdB/src/run_binary_extras:
+1) lund_std_sdB/src/run_binary_extras:
 
   - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L52
 
-With these two lines we are able to have two differents **Jdot**, where the *jdot_min* is the default *jdot_ml* and, the *jdot_max* will be *extra_other_jdot*.
+With this line we are able to have the new Jdot which depends of our new parameter e, the new routine is called "jdot_ml_new" and in the history will appear as *other_jdot_ml*.
 
-  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L68-L99
+  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L69-L105
 
 For now, just added default *jdot_ml* as *jodt_min*. There the default *jdot_beta* will be call now *jdot_beta_min*, and later the *vals(1)* variable in order to have it in the *LOGS/binary_history.data*.
 
