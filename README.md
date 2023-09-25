@@ -21,13 +21,11 @@ With this line we are able to have the new Jdot which depends of our new paramet
 
   - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L69-L105
 
-For now, just added default *jdot_ml* as *jodt_min*. There the default *jdot_beta* will be call now *jdot_beta_min*, and later the *vals(1)* variable in order to have it in the *LOGS/binary_history.data*.
+This is how looks our new subroutine, we will declare few variables.
 
-  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L101-L133
+**The Cauchy-Schwarz Inequality**
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
-Sames as *jdot_min* routine, we created the *jdot_max* routine where we will use our new *jdot_beta_max* variable (we need the equation). In this case out variable *jdot_beta_max* will be the *vals(2)* variable.
-
-  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L136-L141
 
 Here, we say how many variables we wanna add to *binary_history*. In our case, for now, we are adding 5 variables (or more later).
 
