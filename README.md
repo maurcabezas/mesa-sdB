@@ -25,7 +25,9 @@ This is how looks our new subroutine, there we declared the new variables in ord
 
 First we define the $\dot{J}_{\beta,min}$;
 
-$$\dot{J}$$
+```math
+\dot{J}_{\beta,\text{min}}= \dot{M}_{\text{RG},L1}\frac{M_{\text{RG}}^2}{(M_{\text{RG}}+M_{\text{comp}})^2}\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}
+```
 
 *And, the $\dot{J}_{\beta, max}$;*
 
