@@ -46,27 +46,20 @@ where $0 \leq \xi \leq 1$ be the degree of mixture, represented by the new param
 
 It can be interesting 'save' the values of $\dot{J}_{\beta, min}$ and $\dot{J}_{\beta, max}$, to do this we add both 'values' in the history by using the subroutines **how_many_extra_binary_history_columns**
 
-  - https://github.com/maurcabezas/mesa-sdB/blob/4085193e38366c57d75ffcbbbce968752b8e9f04/inlist_std_sdB/src/run_binary_extras.f#L108-L112
+  - https://github.com/maurcabezas/mesa-sdB/blob/6649d6c3f94af76fe729e7840eb006f75041a9d0/inlist_std_sdB/src/run_binary_extras.f#L108-L112
 
 And, **data_for_extra_binary_history_columns**
 
-  - https://github.com/maurcabezas/mesa-sdB/blob/4085193e38366c57d75ffcbbbce968752b8e9f04/inlist_std_sdB/src/run_binary_extras.f#L114-L148
+  - https://github.com/maurcabezas/mesa-sdB/blob/6649d6c3f94af76fe729e7840eb006f75041a9d0/inlist_std_sdB/src/run_binary_extras.f#L114-L148
 
 There, *names(n)* are the names of the new variables that we can find in *binary_history.data*. Is important to note we are adding the new equation inside the subroutine **'other_jdot_ml**, with this we are sure the new definition of the angular momentum will affect,for example, the calculation of the period. If we add the equation in the rountine **data_for_extra_binary_history_columns** we will only calculate the values, but it will not taken into account for internal calculations.
 
 2) inlist_std_sdB/inslit_project
 
-  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/inlist_project#L15-L16
+  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/inlist_project#L16
 
-We must set the 'other' *jdot_* as **.true.**
+We must set the 'other' *jdot_* as **.true.**, and choose our parameter $\xi$.
+
+- https://github.com/maurcabezas/mesa-sdB/blob/e0bb62393e96e02bd217981c8ec1046c5e145654/inlist_std_sdB/inlist_project#L15-L16
 
 
-## NOTES
-
-  - I think is neccesary include the routine of *jdot_min* even if is the default equation, because if we wanna do some change in te *jdot_beta_min* we need to use the pointer **b %** in order to tell mesa that must consider the recalculated *jdot_ml* for any extra internal calculation in the code. 
-
-  - For now I am trying to do it by editing binary/other/binary_jdot.f90, if succes I will updated.
-
-  - Probably, is not neccesary define three times *jdot_alpha* and *jdot_delta*. I am trying ti define them al global variables. 
-  
-  - Feel free to make any change.
