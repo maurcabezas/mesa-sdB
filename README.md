@@ -21,10 +21,13 @@ With this line we are able to have the new Jdot which depends of our new paramet
 
   - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L69-L105
 
-This is how looks our new subroutine, we will declare few variables.
+This is how looks our new subroutine, there we declared the new variables in order to use the new equation to calculate the new Jdot (Bobrick,A).
 
-**The Cauchy-Schwarz Inequality**
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+First we define the $$\dot{J}_{\beta,min}$$;
+$$\dot{J}_{z,min} = \dot{M}_{RG,L1}\frac{M_{RG}^2}{(M_{RG}+M_{comp})^2}\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}$$
+
+And, the $$\dot{J}_{\beta, max}$$;
+$$\dot{J}_{z, max}= \left[\left(\frac{M_{{RG}}}{M_{\mathrm{RG}}+M_{\text {comp}}}\right)^{2}+\left(0.500-0.227 \cdot \log _{10} \frac{M_{\mathrm{RG}}}{M_{\mathrm{MS}}}\right)^{2}\right]\cdot\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}\cdot{\dot{M}_{RG}}$$
 
 
 Here, we say how many variables we wanna add to *binary_history*. In our case, for now, we are adding 5 variables (or more later).
