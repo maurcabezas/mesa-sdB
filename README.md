@@ -26,7 +26,7 @@ This is how looks our new subroutine, there we declared the new variables in ord
 First we define the $$\dot{J}_{\beta,min}$$;
 $$\dot{J}_{z,min} = \dot{M}_{RG,L1}\frac{M_{RG}^2}{(M_{RG}+M_{comp})^2}\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}$$
 
-**And, the $$\dot{J}_{\beta, max}$$;**
+**And, the $\dot{J}_{\beta, max}$;**
 $$\dot{J}_{z, max}= \left[\left(\frac{M_{{RG}}}{M_{\mathrm{RG}}+M_{\text {comp}}}\right)^{2}+\left(0.500-0.227 \cdot \log _{10} \frac{M_{\mathrm{RG}}}{M_{\mathrm{MS}}}\right)^{2}\right]\cdot\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}\cdot{\dot{M}_{RG}}$$
 
 **The Cauchy-Schwarz Inequality**
