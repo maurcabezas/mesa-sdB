@@ -15,7 +15,7 @@ By editing and creating equations in the src/run_binary_extras.f in our working 
 
 1) inlist_std_sdB/src/run_binary_extras:
 
-  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L52-L53
+  - https://github.com/maurcabezas/mesa-sdB/blob/90a03d7e851218a7c5895df9b4cfda7a88517742/inlist_std_sdB/src/run_binary_extras.f#L52
 
 With these two lines we are able to have two differents **Jdot**, where the *jdot_min* is the default *jdot_ml* and, the *jdot_max* will be *extra_other_jdot*.
 
