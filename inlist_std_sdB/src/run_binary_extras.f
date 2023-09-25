@@ -105,7 +105,6 @@
       end subroutine jdot_ml_new     
       
 !---------------------------------------------     
-! here we add 13 new variables to binary_history
       integer function how_many_extra_binary_history_columns(binary_id)
          use binary_def, only: binary_info
          integer, intent(in) :: binary_id
@@ -138,21 +137,13 @@
          lf=(2*pi/b% period) * (b% separation)**2 * sqrt(1 - b% eccentricity**2)
          f3=(0.500-0.227*log10(b% m(b% d_i)/b% m(b% a_i)))**2
 
-
-         jdot_alpha = (b% mdot_system_transfer(b% d_i) + b% mdot_system_wind(b% d_i))*&
-             (b% m(b% a_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
-             sqrt(1 - b% eccentricity**2)
-         !mass lost from vicinity of accretor
          !jdot_beta_min
          f1 = ml1 * msf * lf
          !jdot_beta_max
          f2 = ml1*(mcf+f3)*lf
          !mass lost from circumbinary coplanar toroid
-         jdot_delta = b% mdot_system_cct * b% mass_transfer_gamma * &
-             sqrt(b% s_donor% cgrav(1) * (b% m(1) + b% m(2)) * b% separation)
-
-         vals(1) = ((1- b% eps_deg_mix)*f1)+ (b% eps_deg_mix*f2) !new jbeta
-         vals(2) =jdot_alpha + vals(1) + jdot_delta
+         vals(1) = f1
+         vals(2) = f2
          
       end subroutine data_for_extra_binary_history_columns
       
