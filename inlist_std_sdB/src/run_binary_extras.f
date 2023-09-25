@@ -49,8 +49,7 @@
          ! Set these function pinters to point to the functions you wish to use in
          ! your run_binary_extras. Any which are not set, default to a null_ version
          ! which does nothing.
-         b% other_jdot_ml => jdot_ml_min_routine
-         b% other_extra_jdot => jdot_ml_max_routine
+         b% other_jdot_ml => jdot_ml_new
          b% how_many_extra_binary_history_columns => how_many_extra_binary_history_columns
          b% data_for_extra_binary_history_columns => data_for_extra_binary_history_columns
 
@@ -65,14 +64,15 @@
          
       end subroutine extras_binary_controls
       
-! routine other_jdot_ml ---------------------- for now same as jdot_ml
-!MIN
-      subroutine jdot_ml_min_routine(binary_id, ierr)
+! routine other_jdot_ml ----------------------new Jdot(e)
+
+      subroutine jdot_ml_new(binary_id, ierr)
          implicit none
          integer, intent(in) :: binary_id
          integer, intent(out) :: ierr
          type (binary_info), pointer :: b
-         real(dp) :: jdot_alpha, jdot_beta, jdot_delta
+         real(dp) :: jdot_alpha, jdot_beta_new, jdot_delta
+         real(dp) :: ml1,msf,mcf,lf,f3,f1,f2
          ierr = 0
          call binary_ptr(binary_id, b, ierr)
          if (ierr /= 0) then
@@ -80,64 +80,36 @@
             return
          end if
          
-         !mass lost from vicinity of donor
          jdot_alpha = (b% mdot_system_transfer(b% d_i) + b% mdot_system_wind(b% d_i))*&
              (b% m(b% a_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
              sqrt(1 - b% eccentricity**2)
-         !mass lost from vicinity of accretor
-         !jdot_beta -> jdot_beta_min=vals(1)
-         jdot_beta = (b% mdot_system_transfer(b% a_i) + b% mdot_system_wind(b% a_i))*&
-             (b% m(b% d_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
-             sqrt(1 - b% eccentricity**2)
+
          !mass lost from circumbinary coplanar toroid
          jdot_delta = b% mdot_system_cct * b% mass_transfer_gamma * &
              sqrt(b% s_donor% cgrav(1) * (b% m(1) + b% m(2)) * b% separation)
+
+         ml1=(b% mdot_system_transfer(b% a_i) + b% mdot_system_wind(b% a_i)) !zero at begginng 
+         msf=(b% m(b% d_i)/(b% m(b% d_i)+b% m(b% a_i)))**2 !MS factor 
+         mcf=(b% m(b% d_i)/(b% m(b% d_i)+b% m(1)))**2 !Mcomp factor
+         lf=(2*pi/b% period) * (b% separation)**2 * sqrt(1 - b% eccentricity**2)
+         f3=(0.500-0.227*log10(b% m(b% d_i)/b% m(b% a_i)))**2
          
-         b% jdot_ml = jdot_alpha + jdot_beta + jdot_delta !testing to check different jdot_ml
-         !b% jdot_ml = jdot_alpha + vals(1) + jdot_delta  
-         !jdot_ml -> jdot_ml_bmin=vals(4)             
-      end subroutine jdot_ml_min_routine      
+         !jdot_beta_min
+         f1 = ml1 * msf * lf
+         !jdot_beta_max
+         f2 = ml1*(mcf+f3)*lf
+         !jdot beta
+         jdot_beta_new=((1- b% eps_deg_mix)*f1)+ (b% eps_deg_mix*f2)
+         b% extra_jdot =jdot_alpha+jdot_beta_new+jdot_delta
+
+      end subroutine jdot_ml_new     
       
-! routine extra_jdot ---------------------- for now same as jdot_ml
-!MAX
-      subroutine jdot_ml_max_routine(binary_id, ierr)
-         implicit none
-         integer, intent(in) :: binary_id
-         integer, intent(out) :: ierr
-         type (binary_info), pointer :: b
-         real(dp) :: jdot_alpha, jdot_beta, jdot_delta
-         ierr = 0
-         call binary_ptr(binary_id, b, ierr)
-         if (ierr /= 0) then
-            write(*,*) 'failed in binary_ptr'
-            return
-         end if
-
-         !mass lost from vicinity of donor
-         jdot_alpha = (b% mdot_system_transfer(b% d_i) + b% mdot_system_wind(b% d_i))*&
-             (b% m(b% a_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
-             sqrt(1 - b% eccentricity**2)
-         !mass lost from vicinity of accretor
-         !same as jdot_beta_max better call it vals(2) ??
-         jdot_beta = (b% mdot_system_transfer(b% a_i) + b% mdot_system_wind(b% a_i))*&
-             (b% m(b% d_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
-             sqrt(1 - b% eccentricity**2)
-         !jdot_beta -> jdot_beta_max=vals(2)
-         !mass lost from circumbinary coplanar toroid
-         jdot_delta = b% mdot_system_cct * b% mass_transfer_gamma * &
-             sqrt(b% s_donor% cgrav(1) * (b% m(1) + b% m(2)) * b% separation)
-         
-         b% extra_jdot = jdot_alpha + jdot_beta + jdot_delta
-         !b% extra_jdot = jdot_alpha + vals(2) + jdot_delta  
-         !extra_jdot=jdot_ml_bmax=vals(5)
-      end subroutine jdot_ml_max_routine
-
 !---------------------------------------------     
-! here we add 5 new variables to binary_history
+! here we add 13 new variables to binary_history
       integer function how_many_extra_binary_history_columns(binary_id)
          use binary_def, only: binary_info
          integer, intent(in) :: binary_id
-         how_many_extra_binary_history_columns = 5
+         how_many_extra_binary_history_columns = 2
       end function how_many_extra_binary_history_columns
  !---------------------------------------------        
       subroutine data_for_extra_binary_history_columns(binary_id, n, names, vals, ierr)
@@ -146,7 +118,7 @@
          integer, intent(in) :: binary_id
          integer, intent(in) :: n
          character (len=maxlen_binary_history_column_name) :: names(n)
-         real(dp) :: vals(n),jdot_alpha, jdot_beta, jdot_delta
+         real(dp) :: vals(n),jdot_alpha, jdot_beta, jdot_delta,ml1,msf,mcf,f3,lf,f1,f2
          integer, intent(out) :: ierr
          !real(dp) :: beta
          ! integer :: k
@@ -157,32 +129,31 @@
             return
          end if
 
-         ! if (n /= 1) stop 'data_for_extra_profile_columns'
-         names(1) = 'jdot_beta_min'
-         names(2) = 'jdot_beta_max'
-         names(3) = 'jdot_beta_factor'
-         names(4) = 'jdot_ml_bmin'
-         names(5) = 'jdot_ml_bmax'
+         names(1) = 'jdot_beta_new'
+         names(2) = 'jdot_ml_new'
+
+         ml1=(b% mdot_system_transfer(b% a_i) + b% mdot_system_wind(b% a_i)) !zero at begginng 
+         msf=(b% m(b% d_i)/(b% m(b% d_i)+b% m(b% a_i)))**2 !MS factor 
+         mcf=(b% m(b% d_i)/(b% m(b% d_i)+b% m(1)))**2 !Mcomp factor
+         lf=(2*pi/b% period) * (b% separation)**2 * sqrt(1 - b% eccentricity**2)
+         f3=(0.500-0.227*log10(b% m(b% d_i)/b% m(b% a_i)))**2
+
 
          jdot_alpha = (b% mdot_system_transfer(b% d_i) + b% mdot_system_wind(b% d_i))*&
              (b% m(b% a_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
              sqrt(1 - b% eccentricity**2)
          !mass lost from vicinity of accretor
          !jdot_beta_min
-         vals(1) = (b% mdot_system_transfer(b% a_i) + b% mdot_system_wind(b% a_i))*&
-             (b% m(b% d_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
-             sqrt(1 - b% eccentricity**2)
+         f1 = ml1 * msf * lf
          !jdot_beta_max
-         vals(2) = (b% mdot_system_transfer(b% a_i) + b% mdot_system_wind(b% a_i))*&
-             (b% m(b% d_i)/(b% m(b% a_i)+b% m(b% d_i))*b% separation)**2*2*pi/b% period *&
-             sqrt(1 - b% eccentricity**2)
+         f2 = ml1*(mcf+f3)*lf
          !mass lost from circumbinary coplanar toroid
          jdot_delta = b% mdot_system_cct * b% mass_transfer_gamma * &
              sqrt(b% s_donor% cgrav(1) * (b% m(1) + b% m(2)) * b% separation)
 
-         vals(3) = vals(1)/vals(2)  ! jdot_beta_factor
-         vals(4) =(jdot_alpha + vals(1) + jdot_delta)  !jdot_ml_bmin
-         vals(5) =(jdot_alpha + vals(2) + jdot_delta)  !jdot_ml_bmax
+         vals(1) = ((1- b% eps_deg_mix)*f1)+ (b% eps_deg_mix*f2) !new jbeta
+         vals(2) =jdot_alpha + vals(1) + jdot_delta
+         
       end subroutine data_for_extra_binary_history_columns
       
       
