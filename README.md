@@ -23,7 +23,8 @@ With this line we are able to have the new Jdot which depends of our new paramet
 
 This is how looks our new subroutine, there we declared the new variables in order to use the new equation to calculate the new Jdot (Bobrick,A).
 
-First we define the $$\dot{J}_{\beta,min}$$;
+First we define the $\dot{J}_{\beta,min}$;
+
 $$\dot{J}_{z,min} = \dot{M}_{RG,L1}\frac{M_{RG}^2}{(M_{RG}+M_{comp})^2}\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}$$
 
 **And, the $\dot{J}_{\beta, max}$;**
