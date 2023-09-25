@@ -12,8 +12,8 @@
    m1 = 1.0d0  ! donor mass in Msun
    m2 = 0.95d0 ! companion mass in Msun
    initial_period_in_days = 400d0
-   use_other_extra_jdot = .true.
    use_other_jdot_ml = .true.
+   eps_deg_mix = 0.25d0
    limit_retention_by_mdot_edd = .false.
    
    mdot_scheme = 'Kolb_L3'
