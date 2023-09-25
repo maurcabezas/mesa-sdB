@@ -25,13 +25,14 @@ This is how looks our new subroutine, there we declared the new variables in ord
 
 First we define the $\dot{J}_{\beta,min}$;
 
-$$\dot{J}_{z,min} = \dot{M}_{RG,L1}\frac{M_{RG}^2}{(M_{RG}+M_{comp})^2}\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}$$
+$$\dot{J}_{\beta,min} = \dot{M}_{RG,L1}\frac{M_{RG}^2}{(M_{RG}+M_{comp})^2}\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}$$
 
-**And, the $\dot{J}_{\beta, max}$;**
-$$\dot{J}_{z, max}= \left[\left(\frac{M_{{RG}}}{M_{\mathrm{RG}}+M_{\text {comp}}}\right)^{2}+\left(0.500-0.227 \cdot \log _{10} \frac{M_{\mathrm{RG}}}{M_{\mathrm{MS}}}\right)^{2}\right]\cdot\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}\cdot{\dot{M}_{RG}}$$
+*And, the $\dot{J}_{\beta, max}$;*
+
+$$\dot{J}_{\beta, max}= \left[\left(\frac{M_{{RG}}}{M_{\mathrm{RG}}+M_{\text {comp}}}\right)^{2}+\left(0.500-0.227 \cdot \log _{10} \frac{M_{\mathrm{RG}}}{M_{\mathrm{MS}}}\right)^{2}\right]\cdot\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}\cdot{\dot{M}_{RG}}$$
 
 **The Cauchy-Schwarz Inequality**
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+$$\dot{J}_{\beta, max}= \left[\left(\frac{M_{{RG}}}{M_{\mathrm{RG}}+M_{\text {comp}}}\right)^{2}+\left(0.500-0.227 \cdot \log _{10} \frac{M_{\mathrm{RG}}}{M_{\mathrm{MS}}}\right)^{2}\right]\cdot\frac{2\pi}{p} a^{2}\left(1-e^2\right)^{\frac{1}{2}}\cdot{\dot{M}_{RG}}$$
 
 Here, we say how many variables we wanna add to *binary_history*. In our case, for now, we are adding 5 variables (or more later).
 
